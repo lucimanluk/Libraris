@@ -2,6 +2,7 @@ import { FaSearch } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaSignInAlt } from "react-icons/fa";
+import { Link } from "react-router";
 
 function Navbar() {
     return (
@@ -15,7 +16,7 @@ function Navbar() {
                     <input type="search" placeholder="Search for an item" className="bg-inherit focus:outline-none" />
                     <FaSearch id="search-icon" />
                 </form>
-                <img src = "./src/assets/logo2.png" className = "h-[60px] w-[60px] shadow-md rounded-md"></img>
+                <Link to = "/"><img src = "./src/assets/logo2.png" className = "h-[60px] w-[60px] shadow-md rounded-md hover:shadow-black"></img></Link>
             </div>
             <div className="flex flex-row items-center items-center gap-3">
                 <div className="flex flex-row items-center gap-3">
