@@ -7,8 +7,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="m-0 min-h-screen">
-        <Navbar />
+      <div className="min-h-screen">
+        <Navbar/>
         <ProductPage/>
         <Routes>
           <Route path='/productpage' element={<ProductPage />} />
