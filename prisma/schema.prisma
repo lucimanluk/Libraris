@@ -1,0 +1,85 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["rhel-openssl-1.0.x", "windows"]
+}
+
+model Author {
+  id         String      @id @default(cuid())
+  firstName  String
+  lastName   String
+  signature  String      @unique
+  birthday   String
+  books      Product[]   @relation(name: "AuthorToProduct")
+  publishers Publisher[] @relation(name: "AuthorToPublisher")
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  title       String    @unique
+  type        TYPE
+  price       String
+  publishedOn DateTime?
+  visibleFlag Boolean
+  authorId    String
+  currencyId  String
+  publisherId String
+  providerId  String
+  author      Author    @relation(name: "AuthorToProduct", fields: [authorId], references: [id], onDelete: Cascade)
+  publisher   Publisher @relation(name: "ProductToPublisher", fields: [publisherId], references: [id], onDelete: Cascade)
+  currency    Currency  @relation(name: "CurrencyToProduct", fields: [currencyId], references: [id], onDelete: Cascade)
+  sale        Sale?     @relation(name: "ProductToSale")
+  product     Provider  @relation(fields: [providerId], references: [id], onDelete: Cascade)
+}
+
+model Publisher {
+  id        String    @id @default(cuid())
+  title     String
+  bookTitle String    @unique
+  books     Product[] @relation(name: "ProductToPublisher")
+  author    Author[]  @relation(name: "AuthorToPublisher")
+}
+
+model Currency {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  shortName   String    @unique
+  visibleFlag Boolean
+  books       Product[] @relation(name: "CurrencyToProduct")
+}
+
+model Sale {
+  id           String  @id @default(cuid())
+  promoText    String
+  specialPrice String
+  bookId       String  @unique
+  book         Product @relation(name: "ProductToSale", fields: [bookId], references: [id], onDelete: Cascade)
+}
+
+model Provider {
+  id          String    @id @default(cuid())
+  type        COUNTRY
+  address     String
+  name        String
+  contactInfo String?
+  products    Product[]
+}
+
+enum TYPE {
+  BOOK
+  FIGURINE
+  NOTEBOOKS
+  PENS
+}
+
+enum COUNTRY {
+  ROMANIA
+  USA
+  GERMANY
+  FRANCE
+  CANADA
+}
