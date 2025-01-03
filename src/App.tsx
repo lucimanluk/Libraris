@@ -8,8 +8,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen">
-        <Navbar/>
-        <ProductPage/>
+        <Navbar />
+        <ProductPage />
         <Routes>
           <Route path='/productpage' element={<ProductPage />} />
           <Route path='/produs' element={<Product />} />
