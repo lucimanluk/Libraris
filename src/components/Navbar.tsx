@@ -4,7 +4,7 @@ import { FaBars } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaSignInAlt } from "react-icons/fa";
 import { Link } from "react-router";
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
+import { SignInButton } from '@clerk/clerk-react'
 
 
 function Navbar() {

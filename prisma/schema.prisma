@@ -20,10 +20,14 @@ model Author {
 
 model Product {
   id          String    @id @default(cuid())
+  ISBN        String?   @unique
   title       String    @unique
-  type        TYPE
-  price       String
+  price       Int
   publishedOn DateTime?
+  images      String[]
+  description String
+  page_num    Int
+  type        TYPE
   visibleFlag Boolean
   authorId    String
   currencyId  String
