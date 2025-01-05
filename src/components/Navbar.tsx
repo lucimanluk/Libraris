@@ -4,6 +4,8 @@ import { FaBars } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaSignInAlt } from "react-icons/fa";
 import { Link } from "react-router";
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
+
 
 function Navbar() {
     const [isVisible, setVisible] = useState(false);
@@ -37,10 +39,12 @@ function Navbar() {
                     <Link to="/"><img src="./src/assets/logo2.png" className="h-[80px] w-[80px] shadow-md rounded-md hover:shadow-black absolute top-0"></img></Link>
                 </div>
                 <div className="flex flex-row items-center items-center gap-6">
-                    <div className="flex flex-row items-center gap-2">
-                        <p className="font-medium">SIGN IN</p>
-                        <FaSignInAlt />
-                    </div>
+                    <SignInButton>
+                        <button className="flex flex-row items-center gap-2">
+                            <p className="font-medium">SIGN IN</p>
+                            <FaSignInAlt />
+                        </button>
+                    </SignInButton>
                     <FaCartShopping id="cart" />
                 </div>
             </div>
