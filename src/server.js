@@ -10,9 +10,17 @@ const PORT = 3000;
 
 app.get('/', async (req, res) => {
     const books = await prisma.product.findFirst();
-    res.send(books.price);
+    res.send(books);
 })
 
+app.get('/api', async (req, res) => {
+    const books = await prisma.product.findUnique({
+        where: {
+            title: "Intoarcerea Regelui",
+        },
+    })
+    res.send(books);
+})
 
 app.listen(PORT, () => {
     console.log('The application is listening '

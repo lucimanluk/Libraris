@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar";
-import Product from "./components/Product";
 import ProductPage from "./pages/ProductPage";
+import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
@@ -9,10 +9,9 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen">
         <Navbar />
-        <ProductPage />
         <Routes>
+          <Route path='/' element={<Home />} />
           <Route path='/productpage' element={<ProductPage />} />
-          <Route path='/produs' element={<Product />} />
         </Routes>
       </div>
     </BrowserRouter>
