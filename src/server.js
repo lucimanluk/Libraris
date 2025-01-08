@@ -13,6 +13,7 @@ app.get('/', async (req, res) => {
     res.send(books);
 })
 
+/*
 app.get('/api', async (req, res) => {
     const books = await prisma.product.findUnique({
         where: {
@@ -20,7 +21,7 @@ app.get('/api', async (req, res) => {
         },
     })
     res.send(books);
-})
+})*/
 
 app.listen(PORT, () => {
     console.log('The application is listening '

@@ -12,40 +12,41 @@ model Author {
   id         String      @id @default(cuid())
   firstName  String
   lastName   String
-  signature  String      @unique
-  birthday   String
   books      Product[]   @relation(name: "AuthorToProduct")
   publishers Publisher[] @relation(name: "AuthorToPublisher")
 }
 
 model Product {
-  id          String    @id @default(cuid())
-  ISBN        String?   @unique
-  title       String    @unique
-  price       Int
+  id          String        @id @default(cuid())
+  ISBN        String?       @unique
+  title       String        @unique
+  price       Decimal       @default(0.0)
   publishedOn DateTime?
   images      String[]
   description String
-  page_num    Int
+  sold_pieces Int
+  available   Int
+  page_num    Int?
   type        TYPE
   visibleFlag Boolean
-  authorId    String
+  authorId    String?
   currencyId  String
-  publisherId String
+  publisherId String?
   providerId  String
-  author      Author    @relation(name: "AuthorToProduct", fields: [authorId], references: [id], onDelete: Cascade)
-  publisher   Publisher @relation(name: "ProductToPublisher", fields: [publisherId], references: [id], onDelete: Cascade)
-  currency    Currency  @relation(name: "CurrencyToProduct", fields: [currencyId], references: [id], onDelete: Cascade)
-  sale        Sale?     @relation(name: "ProductToSale")
-  product     Provider  @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  saleId      String?
+  author      Author?       @relation(name: "AuthorToProduct", fields: [authorId], references: [id], onDelete: Cascade)
+  publisher   Publisher?    @relation(name: "ProductToPublisher", fields: [publisherId], references: [id], onDelete: Cascade)
+  currency    Currency      @relation(name: "CurrencyToProduct", fields: [currencyId], references: [id], onDelete: Cascade)
+  sale        Sale?         @relation(name: "ProductToSale", fields: [saleId], references: [id], onDelete: Cascade)
+  provider    Provider      @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  OrderDetail OrderDetail[]
 }
 
 model Publisher {
-  id        String    @id @default(cuid())
-  title     String
-  bookTitle String    @unique
-  books     Product[] @relation(name: "ProductToPublisher")
-  author    Author[]  @relation(name: "AuthorToPublisher")
+  id     String    @id @default(cuid())
+  title  String
+  books  Product[] @relation(name: "ProductToPublisher")
+  author Author[]  @relation(name: "AuthorToPublisher")
 }
 
 model Currency {
@@ -57,11 +58,9 @@ model Currency {
 }
 
 model Sale {
-  id           String  @id @default(cuid())
-  promoText    String
-  specialPrice String
-  bookId       String  @unique
-  book         Product @relation(name: "ProductToSale", fields: [bookId], references: [id], onDelete: Cascade)
+  id       String    @id @default(cuid())
+  percent  Int
+  products Product[] @relation(name: "ProductToSale")
 }
 
 model Provider {
@@ -71,6 +70,44 @@ model Provider {
   name        String
   contactInfo String?
   products    Product[]
+}
+
+model User {
+  id      String  @id @default(cuid())
+  clerkId String
+  orders  Order[]
+}
+
+model Address {
+  id          String  @id @default(cuid())
+  county      String
+  city        String
+  street      String
+  postalCode  String
+  phoneNumber String
+  name        String
+  orders      Order[]
+}
+
+model Order {
+  id        String        @id @default(cuid())
+  subtotal  Int
+  createdAt DateTime      @default(now())
+  userId    String?
+  user      User?         @relation(fields: [userId], references: [id])
+  details   OrderDetail[]
+  Address   Address       @relation(fields: [addressId], references: [id])
+  addressId String
+}
+
+model OrderDetail {
+  id        String  @id @default(cuid())
+  quantity  Int
+  price     Decimal @default(0.0)
+  orderId   String
+  productId String
+  Product   Product @relation(fields: [productId], references: [id])
+  Order     Order   @relation(fields: [orderId], references: [id])
 }
 
 enum TYPE {
