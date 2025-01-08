@@ -48,7 +48,7 @@ function Home() {
                             <div className="p-1">
                                 <Card>
                                     <CardContent className="flex aspect-square items-center justify-center p-6">
-                                        <Product key={index} price={backendData?.price ?? 0} title={backendData?.title ?? ''} page_num={backendData?.page_num ?? 0} available={backendData?.available ?? 0} />
+                                        <Product key={index} id={backendData?.id ?? '1'} price={backendData?.price ?? 0} title={backendData?.title ?? ''} page_num={backendData?.page_num ?? 0} available={backendData?.available ?? 0} />
                                     </CardContent>
                                 </Card>
                             </div>

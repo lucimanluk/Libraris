@@ -8,20 +8,20 @@ const app = express();
 app.use(cors());
 const PORT = 3000;
 
+app.get('/product/:productId', async (req, res) => {
+    console.log(req.params['productId']);
+    const books = await prisma.product.findUnique({
+        where: {
+            id: req.params['productId']
+        }
+    });
+    res.send(books);
+})
+
 app.get('/', async (req, res) => {
     const books = await prisma.product.findFirst();
     res.send(books);
 })
-
-/*
-app.get('/api', async (req, res) => {
-    const books = await prisma.product.findUnique({
-        where: {
-            title: "Intoarcerea Regelui",
-        },
-    })
-    res.send(books);
-})*/
 
 app.listen(PORT, () => {
     console.log('The application is listening '

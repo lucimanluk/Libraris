@@ -3,19 +3,20 @@ import { Link } from "react-router";
 function Product({
     price,
     title,
-    page_num,
+    id,
     available
 }: {
     price: number
     title: string
     page_num: number
+    id: string
     available: number
 }) {
 
 
     return (
         <div className="w-[200px] border-[1px] rounded-md flex flex-col gap-4 p-3">
-            <Link to="/productpage" state={{ from: price, title, page_num }}>
+            <Link to={`/product/${id}`}>
                 <img src="./src/assets/logo2.png" className="rounded-xl" />
             </Link >
             <div>

@@ -4,12 +4,13 @@ import { FaBars } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaSignInAlt } from "react-icons/fa";
 import { Link } from "react-router";
-import { SignInButton } from '@clerk/clerk-react'
+import { SignInButton } from '@clerk/clerk-react';
+import logo from "../assets/logo2.png";
+
 
 
 function Navbar() {
     const [isVisible, setVisible] = useState(false);
-    const paths: String[] = ['Books', 'Figurines', 'Notebooks', 'Pens'];
 
     function handleClick() {
         setVisible(!isVisible);
@@ -22,11 +23,13 @@ function Navbar() {
                     <FaBars id="bars" />
                     <p className="font-medium">PRODUCTS</p>
                     {
-                        isVisible ? <div className="py-2 px-6 absolute top-[41px] z-10 border-2 bg-slate-50">
+                        isVisible ? <div className="py-2 px-6 absolute top-[41px] z-10 border-2 bg-slate-50 w-[140px]">
                             <ul>
-                                {paths.map((path, i) =>
-                                    <li key={i}>{path}</li>
-                                )}
+                                <li className="font-medium">All products</li>
+                                <Link to='/products/books'><li> Books</li></Link>
+                                <li>Pens</li>
+                                <li>Notebooks</li>
+                                <li>Figurines</li>
                             </ul>
                         </div> : null
                     }
@@ -36,7 +39,7 @@ function Navbar() {
                         <input type="search" placeholder="Search for an item" className="bg-inherit focus:outline-none" />
                         <FaSearch id="search-icon" />
                     </form>
-                    <Link to="/"><img src="./src/assets/logo2.png" className="h-[80px] w-[80px] shadow-md rounded-md hover:shadow-black absolute top-0"></img></Link>
+                    <Link to="/"><img src={logo} className="h-[80px] w-[80px] shadow-md rounded-md hover:shadow-black absolute top-0"></img></Link>
                 </div>
                 <div className="flex flex-row items-center items-center gap-6">
                     <SignInButton>
@@ -48,7 +51,7 @@ function Navbar() {
                     <FaCartShopping id="cart" />
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

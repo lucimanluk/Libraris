@@ -11,7 +11,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/productpage' element={<ProductPage />} />
+          <Route path='/product/:productId' element={<ProductPage />} />
+          <Route path='/products/:type' element={<ProductPage />} />
         </Routes>
       </div>
     </BrowserRouter>
