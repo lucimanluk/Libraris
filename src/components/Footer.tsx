@@ -1,9 +1,9 @@
 export default function Footer() {
     return (
         <div className="flex flex-row justify-evenly py-3 px-3 relative bg-slate-200">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
                 <p className="flex flex-col">
-                    <span>
+                    <span className="font-bold">
                         Livrare gratuita
                     </span>
                     <span>

@@ -13,9 +13,24 @@ app.get('/product/:productId', async (req, res) => {
     const books = await prisma.product.findUnique({
         where: {
             id: req.params['productId']
-        }
+        },
     });
     res.send(books);
+})
+
+app.get('/items/type/:type', async (req, res) => {
+    if (req.params['type'] === 'All products') {
+        const products = await prisma.product.findMany();
+        res.send(products);
+    } else {
+        console.log(req.params['type']);
+        const products = await prisma.product.findMany({
+            where: {
+                type: req.params['type']
+            },
+        })
+        res.send(products);
+    }
 })
 
 app.get('/', async (req, res) => {

@@ -33,7 +33,6 @@ function ProductPage() {
                 const response = await fetch(`http://localhost:3000/product/${productId}`, { mode: "cors" });
                 const json = await response.json();
                 setBackendData(json);
-                console.log(backendData);
             } catch (e) {
                 console.error(e);
                 setErrr(true);
@@ -41,6 +40,8 @@ function ProductPage() {
         }
         fetchData();
     }, [productId]);
+
+    console.log(backendData);
 
     return (
         <>

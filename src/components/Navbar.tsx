@@ -11,6 +11,7 @@ import logo from "../assets/logo2.png";
 
 function Navbar() {
     const [isVisible, setVisible] = useState(false);
+    const arr = ['All products', 'BOOK', 'PENS', 'NOTEBOOKS', 'FIGURINE'];
 
     function handleClick() {
         setVisible(!isVisible);
@@ -25,11 +26,11 @@ function Navbar() {
                     {
                         isVisible ? <div className="py-2 px-6 absolute top-[41px] z-10 border-2 bg-slate-50 w-[140px]">
                             <ul>
-                                <li className="font-medium">All products</li>
-                                <Link to='/products/books'><li> Books</li></Link>
-                                <li>Pens</li>
-                                <li>Notebooks</li>
-                                <li>Figurines</li>
+                                <Link to={`/items/type/${arr[0]}`}><li className="font-medium">All products</li></Link>
+                                <Link to={`/items/type/${arr[1]}`}><li> Books</li></Link>
+                                <Link to={`/items/type/${arr[2]}`}><li>Pens</li></Link>
+                                <Link to={`/items/type/${arr[3]}`}><li>Notebooks</li></Link>
+                                <Link to={`/items/type/${arr[4]}`}><li>Figurines</li></Link>
                             </ul>
                         </div> : null
                     }
