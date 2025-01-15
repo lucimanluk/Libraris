@@ -11,8 +11,18 @@ const PORT = 3000;
 app.get('/product/:productId', async (req, res) => {
     console.log(req.params['productId']);
     const books = await prisma.product.findUnique({
+        relationLoadStrategy: 'join',
         where: {
             id: req.params['productId']
+        },
+        include: {
+            sale: {
+                select: {
+                    percent: true,
+                }
+            },
+            author: true,
+            publisher: true
         },
     });
     res.send(books);
@@ -20,13 +30,31 @@ app.get('/product/:productId', async (req, res) => {
 
 app.get('/items/type/:type', async (req, res) => {
     if (req.params['type'] === 'All products') {
-        const products = await prisma.product.findMany();
+        const products = await prisma.product.findMany({
+            relationLoadStrategy: 'join',
+            include: {
+                sale: {
+                    select: {
+                        percent: true,
+                    }
+                },
+                author: true,
+            },
+        })
         res.send(products);
     } else {
-        console.log(req.params['type']);
         const products = await prisma.product.findMany({
+            relationLoadStrategy: 'join',
             where: {
                 type: req.params['type']
+            },
+            include: {
+                sale: {
+                    select: {
+                        percent: true,
+                    }
+                },
+                author: true,
             },
         })
         res.send(products);

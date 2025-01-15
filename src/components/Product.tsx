@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import logo from "../assets/logo2.png";
 function Product({
     price,
     title,
@@ -21,7 +22,7 @@ function Product({
     return (
         <div className="w-[200px] border-[1px] rounded-md flex flex-col gap-4 p-3">
             <Link to={`/product/${id}`}>
-                <img src="./src/assets/logo2.png" className="rounded-xl" />
+                <img src={logo} className="rounded-xl" />
             </Link>
             <div>
                 <div className="text-green-600 flex flex-row items-center text-[13px]">

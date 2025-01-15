@@ -1,21 +1,36 @@
+import Product from "@/components/Product";
 import { useParams } from "react-router";
 import { useEffect, useState } from 'react';
+
 function ProductList() {
+
+
     interface Product {
         id: string;
         ISBN?: string | null;
         title: string;
+        author?: Author;
         price: number;
+        sale?: Sale;
         available: number;
         publishedOn?: Date | null;
         images: string[];
         description: string;
         page_num: number;
+        type: string;
     }
 
-    const [backendData, setBackendData] = useState<Product>();
+    interface Sale {
+        percent: number;
+    }
+
+    interface Author {
+        lastName: string;
+        firstName: string;
+    }
+
+    const [backendData, setBackendData] = useState<Product[]>([]);
     const { type } = useParams();
-    console.log(type);
 
     useEffect(() => {
         async function fetchData() {
@@ -28,15 +43,32 @@ function ProductList() {
             }
         }
         fetchData();
-    }, []);
+    }, [type]);
 
-    console.log(backendData);
+    const category = type ? type.charAt(0) + type?.substring(1).toLowerCase() : null;
 
     return (
 
-        <>
-            Hallo
-        </>
+        <div className="px-3 pt-2 pb-6 shadow-md w-7/12 mx-auto min-h-screen flex flex-col">
+            <p className="m-2 text-lg font-bold">{category}</p>
+            <div className=" grid grid-cols-4 gap-y-3 place-items-center">
+                {backendData.map((product, index) => {
+                    return (
+                        <Product
+                            key={index}
+                            id={product.id}
+                            price={product.price}
+                            title={product.title}
+                            page_num={product.page_num}
+                            available={product.available}
+                            sale={product.sale?.percent}
+                            type={product.type}
+                            author={`${product.author?.firstName}  ${product.author?.lastName}`}>
+                        </Product>
+                    )
+                })}
+            </div>
+        </div>
     )
 }
 
