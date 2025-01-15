@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+//import Product from "./components/Product";
 import ProductPage from "./pages/ProductPage";
 import Products from "./pages/Products";
 import Home from "./pages/Home";
@@ -11,6 +12,7 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen">
         <Navbar />
+        {/*<Product id={'rower'} price={230} title={"hi"} page_num={230} sale={0} available={0} type={'BOOK'} author={'eu'} / >*/}
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/product/:productId' element={<ProductPage />} />

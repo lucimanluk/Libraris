@@ -33,9 +33,52 @@ app.get('/items/type/:type', async (req, res) => {
     }
 })
 
-app.get('/', async (req, res) => {
-    const books = await prisma.product.findFirst();
-    res.send(books);
+app.get('/sales', async (req, res) => {
+    const onSale = await prisma.product.findMany({
+        relationLoadStrategy: 'join',
+        where: {
+            saleId: {
+                not: null
+            },
+            available: {
+                not: 0
+            }
+        },
+        include: {
+            sale: {
+                select: {
+                    percent: true
+                }
+            },
+            author: true,
+        },
+        take: 7
+    });
+    res.send(onSale);
+})
+
+app.get('/best_selling', async (req, res) => {
+    const best_selling = await prisma.product.findMany({
+        relationLoadStrategy: 'join',
+        where: {
+            available: {
+                not: 0
+            }
+        },
+        include: {
+            sale: {
+                select: {
+                    percent: true,
+                }
+            },
+            author: true,
+        },
+        orderBy: {
+            sold_pieces: 'desc'
+        },
+        take: 7
+    })
+    res.send(best_selling);
 })
 
 app.listen(PORT, () => {
